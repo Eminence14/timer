@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Trebuchet MS', sans-serif;
+            background-image: url('./nature.jpg');
+            background-size: 100%;
+            color: white;
+        }
+
+        .container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 50%;
+            width: 50%;
+            padding-top: 50px;
+            border-radius: 10px;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, .1);
+            backdrop-filter: blur(3px);
+            box-shadow: 1px 1px 20px 5px rgba(0, 0, 0, .1), -1px -1px 20px 5px rgba(0, 0, 0, .2);
+        }
+
+        .time {
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, .5);
+            height: 100px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .time div {
+            text-align: left;
+            font-size: 1.5em;
+            font-weight: 900;
+        }
+
+        .time div:nth-child(1) {
+            margin-left: auto;
+        }
+
+        .time div:nth-child(2) {
+            margin: 0 5px;
+        }
+
+        .time div:nth-child(3) {
+            margin-right: auto;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 900;
+            border: 1px solid rgba(0, 0, 0, .1);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Time</h1>
+        <div class="time">
+            <div class="hours">00</div>
+            <div class="minutes">00</div>
+            <div class="seconds">00</div>
+        </div>
+        <div class="buttons">
+            <button class="start">START</button>
+            <button class="pause">PAUSE</button>
+            <button class="reset">RESET</button>
+        </div>
+    </div>
+
+
+
+    <script>
+        const start = document.querySelector('.start')
+        const pause = document.querySelector('.pause')
+        const reset = document.querySelector('.reset')
+        const allTime = document.querySelectorAll('.time div')
+        const hours = document.querySelector('.hours')
+        const minutes = document.querySelector('.minutes')
+        const seconds = document.querySelector('.seconds')
+        let interId;
+        let secTrack = 0; minTrack = 0; hrTrack = 0;
+
+        start.addEventListener('click', () => {
+            start.style.pointerEvents = 'none';
+            interId = setInterval(() => {
+                secTrack++;
+                if (secTrack == 60) {
+                    secTrack = 0;
+                    minTrack++;
+                }
+                if (minTrack == 60) {
+                    minTrack = 0;
+                    hrTrack++;
+                }
+                hours.innerHTML = `${hrTrack}h &nbsp;`
+                minutes.innerHTML = `${minTrack}m &nbsp;`
+                seconds.innerHTML = `${secTrack}s`
+            }, 1000)
+        })
+
+        reset.addEventListener('click', () => {
+            secTrack = 0; minTrack = 0; hrTrack = 0;
+            hours.innerHTML = `${hrTrack}h &nbsp;`
+            minutes.innerHTML = `${minTrack}m &nbsp;`
+            seconds.innerHTML = `${secTrack}s`
+            start.style.pointerEvents = 'all';
+            clearInterval(interId)
+        })
+
+        pause.addEventListener('click', () => {
+            clearInterval(interId)
+            start.style.pointerEvents = 'all';
+        })
+
+    </script>
+</body>
+
+</html>
