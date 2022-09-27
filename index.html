@@ -66,7 +66,7 @@
         button {
             padding: 5px 10px;
             cursor: pointer;
-            background: none;
+            background: rgba(0, 0, 0, .05);
             border: none;
             color: white;
             font-weight: 900;
@@ -106,7 +106,7 @@
 
         start.addEventListener('click', () => {
             start.style.pointerEvents = 'none';
-            if(start.textContent === 'CONTINUE')
+            if (start.textContent === 'CONTINUE')
                 start.textContent = 'START'
             interId = setInterval(() => {
                 secTrack++;
